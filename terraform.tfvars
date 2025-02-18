@@ -20,3 +20,7 @@ private-eks-subnet-1b-cidr = "10.0.8.0/24"
 availability_zones   = ["us-east-1a", "us-east-1b"]
 enable_nat_gateway   = true
 aws_profile = "labcart4"
+
+##eks cluster
+cluster_name = "main-eks-cluster"
+cluster_version = "1.31"

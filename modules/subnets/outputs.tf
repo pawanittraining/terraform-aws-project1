@@ -19,3 +19,11 @@ output "private_subnet_cidrs" {
   value       = aws_subnet.private_subnet[*].cidr_block
 }
 
+output "private_eks_subnet_ids" {
+  value = [
+    for subnet in aws_subnet.private_subnet : subnet.id if substr(subnet.tags["Name"], 0, 14) == "Private-eks-"
+  ]
+}
+
+
+

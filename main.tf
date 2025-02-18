@@ -87,3 +87,28 @@ module "nacl" {
   vpc_id         = module.vpc.vpc_id
   public_subnet_id = module.subnets.public_subnet_ids[0]
 }
+
+# Call IAM Role Module for EKS Master Role (Ensure this IAM module is properly defined and referenced)
+# module "iam_role" {
+#   source = "./modules/iam-role"
+#   role_name = "eks_master_role"
+# }
+
+## Call EKS Cluster Module
+module "eks_cluster" {
+  source = "./modules/eks-cluster"
+
+  cluster_name                     = var.cluster_name
+  cluster_version                  = var.cluster_version
+  public_subnets                   = module.subnets.public_subnet_ids
+  cluster_endpoint_private_access  = var.cluster_endpoint_private_access
+  cluster_endpoint_public_access   = var.cluster_endpoint_public_access
+  cluster_endpoint_public_access_cidrs = var.cluster_endpoint_public_access_cidrs
+  cluster_service_ipv4_cidr        = var.cluster_service_ipv4_cidr
+
+  vpc_id                           = module.vpc.vpc_id 
+  depends_on = [
+    module.subnets,
+  ]
+}
+  #private_subnets                  = module.subnets.private_eks_subnet_ids

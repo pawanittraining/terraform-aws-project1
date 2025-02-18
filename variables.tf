@@ -92,3 +92,39 @@ variable "aws_profile" {
 # }
 
 
+##EKS cluster
+variable "cluster_name" {
+  description = "The name of the EKS cluster"
+  type        = string
+  default     = "my-eks-cluster"
+}
+
+variable "cluster_version" {
+  description = "EKS Cluster Kubernetes version"
+  type        = string
+  default     = "1.31"
+}
+
+variable "cluster_endpoint_private_access" {
+  description = "Enable private access to the EKS endpoint"
+  type        = bool
+  default     = true
+}
+
+variable "cluster_endpoint_public_access" {
+  description = "Enable public access to the EKS endpoint"
+  type        = bool
+  default     = true
+}
+
+variable "cluster_endpoint_public_access_cidrs" {
+  description = "CIDRs for public access to the EKS endpoint"
+  type        = list(string)
+  default     = ["0.0.0.0/0"]
+}
+
+variable "cluster_service_ipv4_cidr" {
+  description = "IPv4 CIDR block for EKS services"
+  type        = string
+  default     = "10.100.0.0/16"
+}
